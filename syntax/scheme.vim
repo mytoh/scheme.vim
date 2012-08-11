@@ -134,20 +134,20 @@ syn match	schemeDelimiter	oneline    !\.$!
 
 " This keeps all other stuff unhighlighted, except *stuff* and <stuff>:
 
-syn match	schemeOther	oneline    ,[a-z!$%&*/:<=>?^_~+@%-][-a-z!$%&*/:<=>?^_~0-9+.@%]*,
-syn match	schemeError	oneline    ,[a-z!$%&*/:<=>?^_~+@%-][-a-z!$%&*/:<=>?^_~0-9+.@%]*[^-a-z!$%&*/:<=>?^_~0-9+.@ \t\[\]()";]\+[^ \t\[\]()";]*,
+syn match	schemeOther	oneline    ,[a-zäöë!$%&*/:<=>?^_~+@%-][-a-zäöë!$%&*/:<=>?^_~0-9+.@%]*,
+syn match	schemeError	oneline    ,[a-zäöë!$%&*/:<=>?^_~+@%-][-a-zäöë!$%&*/:<=>?^_~0-9+.@%]*[^-a-zäöë!$%&*/:<=>?^_~0-9+.@ \t\[\]()";]\+[^ \t\[\]()";]*,
 
 syn match	schemeOther	oneline    "\.\.\."
 syn match	schemeError	oneline    !\.\.\.[^ \t\[\]()";]\+!
 " ... a special identifier
 
-syn match	schemeConstant	oneline    ,\*[-a-z!$%&*/:<=>?^_~0-9+.@]*\*[ \t\[\]()";],me=e-1
-syn match	schemeConstant	oneline    ,\*[-a-z!$%&*/:<=>?^_~0-9+.@]*\*$,
-syn match	schemeError	oneline    ,\*[-a-z!$%&*/:<=>?^_~0-9+.@]*\*[^-a-z!$%&*/:<=>?^_~0-9+.@ \t\[\]()";]\+[^ \t\[\]()";]*,
+syn match	schemeConstant	oneline    ,\*[-a-zäöë!$%&*/:<=>?^_~0-9+.@]*\*[ \t\[\]()";],me=e-1
+syn match	schemeConstant	oneline    ,\*[-a-zäöë!$%&*/:<=>?^_~0-9+.@]*\*$,
+syn match	schemeError	oneline    ,\*[-a-zäöë!$%&*/:<=>?^_~0-9+.@]*\*[^-a-zäöë!$%&*/:<=>?^_~0-9+.@ \t\[\]()";]\+[^ \t\[\]()";]*,
 
-syn match	schemeConstant	oneline    ,<[-a-z!$%&*/:<=>?^_~0-9+.@]*>[ \t\[\]()";],me=e-1
-syn match	schemeConstant	oneline    ,<[-a-z!$%&*/:<=>?^_~0-9+.@]*>$,
-syn match	schemeError	oneline    ,<[-a-z!$%&*/:<=>?^_~0-9+.@]*>[^-a-z!$%&*/:<=>?^_~0-9+.@ \t\[\]()";]\+[^ \t\[\]()";]*,
+syn match	schemeConstant	oneline    ,<[-a-zäöë!$%&*/:<=>?^_~0-9+.@]*>[ \t\[\]()";],me=e-1
+syn match	schemeConstant	oneline    ,<[-a-zäöë!$%&*/:<=>?^_~0-9+.@]*>$,
+syn match	schemeError	oneline    ,<[-a-zäöë!$%&*/:<=>?^_~0-9+.@]*>[^-a-zäöë!$%&*/:<=>?^_~0-9+.@ \t\[\]()";]\+[^ \t\[\]()";]*,
 
 " Non-quoted lists, and strings:
 
