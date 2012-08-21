@@ -1,3 +1,5 @@
+" github.com/ayamada/copy-of-svn.tir.jp/nekoie/goshtags/make_scheme_vim.scm
+"
 " Vim syntax file
 " Language:	Scheme (R5RS)
 " Last Change:	2007 Jun 16
@@ -4516,6 +4518,8 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc verbose-run
 
 
+    " other lispwords
+    syn lispwords+=call-with-output-file
 
     " meddlesome
     set ts=8 sts=2 sw=2 et nocindent lisp
