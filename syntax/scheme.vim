@@ -4521,6 +4521,8 @@ if exists("b:is_gauche") || exists("is_gauche")
     " other lispwords
     set lispwords+=call-with-output-file
     set lispwords+=call-with-input-file
+    set lispwords+=with-input-from-port
+    set lispwords+=call-with-input-string
 
     " meddlesome
     set ts=8 sts=2 sw=2 et nocindent lisp
