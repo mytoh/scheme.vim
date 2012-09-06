@@ -74,9 +74,9 @@ syn region schemeUnquote matchgroup=Delimiter start=",@#\[" end="\]" contains=AL
 " R5RS Scheme Functions and Syntax:
 
 if version < 600
-  set iskeyword=33,35-38,42,43,45-58,60-90,94,95,97-122,126,_,.
+  set iskeyword=33,35-38,42,43,45-58,60-90,94,95,97-122,126,_,\.
 else
-  setlocal iskeyword=33,35-38,42,43,45-58,60-90,94,95,97-122,126,_,.
+  setlocal iskeyword=33,35-38,42,43,45-58,60-90,94,95,97-122,126,_,\.
 endif
 
 set lispwords=
@@ -420,6 +420,7 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc file-is-archive?
     syn keyword schemeExtFunc find-all-tags
     syn keyword schemeExtFunc gc-stats
+    syn keyword schemeExtFunc gcons
     syn keyword schemeExtFunc get-internal-info
     syn keyword schemeExtFunc get-os-type
     syn keyword schemeExtFunc global-environment
@@ -1805,7 +1806,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc gauche-version
     syn keyword schemeExtFunc gc
     syn keyword schemeExtFunc gc-stat
-    syn keyword schemeExtFunc gcons
     syn keyword schemeExtFunc gdrop
     syn keyword schemeExtFunc gdrop-while
     syn keyword schemeExtFunc generator->list
