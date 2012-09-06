@@ -172,7 +172,7 @@ syn region schemeSrfi62Comment matchgroup=Comment start="#;(" matchgroup=Comment
 syn region schemeSrfi62Comment matchgroup=Comment start="#;\[" matchgroup=Comment end="\]" contains=schemeSrfi62CommentParen,schemeTodo
 syn region schemeSrfi62Comment matchgroup=Comment start="#;['`](" matchgroup=Comment end=")" contains=schemeSrfi62CommentParen,schemeTodo
 syn region schemeSrfi62Comment matchgroup=Comment start="#;['`]\[" matchgroup=Comment end="\]" contains=schemeSrfi62CommentParen,schemeTodo
-syn match	schemeComment	";.*$"
+syn match	schemeComment	";.*$" contains=schemeTodo
 syn keyword     schemeTodo	  FIXME NOTE TODO OPTIMIZE XXX contained
 
 " Writing out the complete description of Scheme numerals without
