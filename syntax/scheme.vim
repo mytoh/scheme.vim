@@ -168,11 +168,12 @@ syn match	schemeSrfi62Comment	oneline    ,#;[a-z!$%&*/:<=>?^_~+@#%-][-a-z!$%&*/:
 syn match	schemeError		oneline    ,#;[a-z!$%&*/:<=>?^_~+@#%-][-a-z!$%&*/:<=>?^_~0-9+.@#%]*[^-a-z!$%&*/:<=>?^_~0-9+.@ \t\[\]()";]\+[^ \t\[\]()";]*,
 syn match	schemeSrfi62Comment	oneline    ,#;['`][a-z!$%&*/:<=>?^_~+@#%-][-a-z!$%&*/:<=>?^_~0-9+.@#%]*,
 syn match	schemeError		oneline    ,#;['`][a-z!$%&*/:<=>?^_~+@#%-][-a-z!$%&*/:<=>?^_~0-9+.@#%]*[^-a-z!$%&*/:<=>?^_~0-9+.@ \t\[\]()";]\+[^ \t\[\]()";]*,
-syn region schemeSrfi62Comment matchgroup=Comment start="#;(" matchgroup=Comment end=")" contains=schemeSrfi62CommentParen
-syn region schemeSrfi62Comment matchgroup=Comment start="#;\[" matchgroup=Comment end="\]" contains=schemeSrfi62CommentParen
-syn region schemeSrfi62Comment matchgroup=Comment start="#;['`](" matchgroup=Comment end=")" contains=schemeSrfi62CommentParen
-syn region schemeSrfi62Comment matchgroup=Comment start="#;['`]\[" matchgroup=Comment end="\]" contains=schemeSrfi62CommentParen
+syn region schemeSrfi62Comment matchgroup=Comment start="#;(" matchgroup=Comment end=")" contains=schemeSrfi62CommentParen,schemeTodo
+syn region schemeSrfi62Comment matchgroup=Comment start="#;\[" matchgroup=Comment end="\]" contains=schemeSrfi62CommentParen,schemeTodo
+syn region schemeSrfi62Comment matchgroup=Comment start="#;['`](" matchgroup=Comment end=")" contains=schemeSrfi62CommentParen,schemeTodo
+syn region schemeSrfi62Comment matchgroup=Comment start="#;['`]\[" matchgroup=Comment end="\]" contains=schemeSrfi62CommentParen,schemeTodo
 syn match	schemeComment	";.*$"
+syn keyword     schemeTodo	  FIXME NOTE TODO OPTIMIZE XXX contained
 
 " Writing out the complete description of Scheme numerals without
 " using variables is a day's work for a trained secretary...
@@ -262,7 +263,7 @@ endif
 
 if exists("b:is_chicken") || exists("is_chicken")
     " multiline comment
-    syntax region schemeMultilineComment start=/#|/ end=/|#/ contains=schemeMultilineComment
+    syntax region schemeMultilineComment start=/#|/ end=/|#/ contains=schemeMultilineComment,schemeTodo
 
     syn match schemeOther oneline    "##[-a-z!$%&*/:<=>?^_~0-9+.@#%]\+"
     syn match schemeExtSyntax oneline    "#:[-a-z!$%&*/:<=>?^_~0-9+.@#%]\+"
@@ -304,7 +305,7 @@ endif
 if exists("b:is_gauche") || exists("is_gauche")
     " Gauche extensions
     " multiline comment
-    syntax region schemeMultilineComment start=/#|/ end=/|#/ contains=schemeMultilineComment
+    syntax region schemeMultilineComment start=/#|/ end=/|#/ contains=schemeMultilineComment,schemeTodo
 
     " #/xxx/ are the special Gauche identifiers for regexp
     syn region schemeRegexp start=+\%(\\\)\@<!#/+ skip=+\\[\\/]+ end=+/+
@@ -4559,6 +4560,7 @@ if version >= 508 || !exists("did_scheme_syntax_inits")
 
   HiLink schemeComment		Comment
   HiLink schemeMultilineComment	Comment
+  HiLink schemeTodo             Todo
   HiLink schemeError		Error
 
   HiLink schemeExtSyntax	Type
