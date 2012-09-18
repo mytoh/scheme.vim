@@ -1,4 +1,7 @@
 
+let s:save_cpo = &cpo
+set cpo&vim
+
 function! scheme#syntax#define_highligts()
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already
@@ -15,7 +18,7 @@ if version >= 508 || !exists("did_scheme_syntax_inits")
   HiLink schemeFunc		Function
 
   HiLink schemeString		String
-  HiLink schemeCharacter		Character
+  HiLink schemeCharacter	Character
   HiLink schemeNumber		Number
   HiLink schemeBoolean		Boolean
 
@@ -28,7 +31,9 @@ if version >= 508 || !exists("did_scheme_syntax_inits")
   HiLink schemeTodo             Todo
 
   HiLink schemeExtSyntax	Type
+  HiLink schemeGaucheExtSyntax	Type
   HiLink schemeExtFunc		PreProc
+  HiLink schemeGaucheExtFunc	PreProc
 
   HiLink schemeRegexp		schemeString
   HiLink schemeSrfi62Comment	schemeComment
@@ -40,3 +45,6 @@ if version >= 508 || !exists("did_scheme_syntax_inits")
 endif
 
 endfunction
+
+let &cpo = s:save_cpo
+unlet s:save_cpo

@@ -5,7 +5,7 @@ set cpo&vim
 function! gauche#syntax#define_keywords()
     " Gauche extensions
     " multiline comment
-    syntax region schemeMultilineComment start=/#|/ end=/|#/ contains=schemeMultilineComment,schemeTodo
+    syntax region schemeMultilineComment start=/#|/ end=/|#/ contains=@Spell,schemeMultilineComment,schemeTodo
 
     " #/xxx/ are the special Gauche identifiers for regexp
     syn region schemeRegexp start=+\%(\\\)\@<!#/+ skip=+\\[\\/]+ end=+/+
