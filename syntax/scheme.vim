@@ -194,12 +194,12 @@ syn match	schemeError	oneline    "+nan\.0[^-#+/0-9a-f@i.boxesfdl \t\[\]()";][^ \
 syn match	schemeBoolean	oneline    "#[tf]"
 syn match	schemeError	oneline    !#[tf][^ \t\[\]()";]\+!
 
-syn match	schemeChar	oneline    "#\\"
-syn match	schemeChar	oneline    "#\\."
+syn match	schemeCharacter	oneline    "#\\"
+syn match	schemeCharacter	oneline    "#\\."
 syn match	schemeError	oneline    !#\\.[^ \t\[\]()";]\+!
-syn match	schemeChar	oneline    "#\\space"
+syn match	schemeCharacter	oneline    "#\\space"
 syn match	schemeError	oneline    !#\\space[^ \t\[\]()";]\+!
-syn match	schemeChar	oneline    "#\\newline"
+syn match	schemeCharacter	oneline    "#\\newline"
 syn match	schemeError	oneline    !#\\newline[^ \t\[\]()";]\+!
 
 if exists("b:is_mzscheme") || exists("is_mzscheme")
@@ -212,7 +212,7 @@ if exists("b:is_mzscheme") || exists("is_mzscheme")
     " anything limited by |'s is identifier
     syn match schemeOther oneline    "|[^|]\+|"
 
-    syn match	schemeChar	oneline    "#\\\%(return\|tab\)"
+    syn match	schemeCharacter	oneline    "#\\\%(return\|tab\)"
 
     " Modules require stmt
     syn keyword schemeExtSyntax module require dynamic-require lib prefix all-except prefix-all-except rename
@@ -263,10 +263,10 @@ endif
 
 if exists("b:is_chicken") || exists("is_chicken")
     " multiline comment
-    syntax region schemeMultilineComment start=/#|/ end=/|#/ contains=schemeMultilineComment,schemeTodo
+    syntax region schemeMultilineComment start=/#|/ end=/|#/ contains=@Spell,schemeMultilineComment,schemeTodo
 
-    syn match schemeOther oneline    "##[-a-z!$%&*/:<=>?^_~0-9+.@#%]\+"
-    syn match schemeExtSyntax oneline    "#:[-a-z!$%&*/:<=>?^_~0-9+.@#%]\+"
+    syn match schemeOther "##[-a-z!$%&*/:<=>?^_~0-9+.@#%]\+"
+    syn match schemeExtSyntax "#:[-a-z!$%&*/:<=>?^_~0-9+.@#%]\+"
 
     syn keyword schemeExtSyntax unit uses declare hide foreign-declare foreign-parse foreign-parse/spec
     syn keyword schemeExtSyntax foreign-lambda foreign-lambda* define-external define-macro load-library
@@ -278,8 +278,8 @@ if exists("b:is_chicken") || exists("is_chicken")
     syn keyword schemeExtFunc ##core#inline ##sys#error ##sys#update-errno
 
     " here-string
-    syn region schemeString start=+#<<\s*\z(.*\)+ end=+^\z1$+
- 
+    syn region schemeString start=+#<<\s*\z(.*\)+ end=+^\z1$+ contains=@Spell
+
     if filereadable(expand("<sfile>:p:h")."/cpp.vim")
 	unlet! b:current_syntax
 	syn include @ChickenC <sfile>:p:h/cpp.vim
@@ -297,67 +297,26 @@ if exists("b:is_chicken") || exists("is_chicken")
     endif
 
     " suggested by Alex Queiroz
-    syn match schemeExtSyntax oneline    "#![-a-z!$%&*/:<=>?^_~0-9+.@#%]\+"
-    syn region schemeString start=+#<#\s*\z(.*\)+ end=+^\z1$+ 
+    syn match schemeExtSyntax "#![-a-z!$%&*/:<=>?^_~0-9+.@#%]\+"
+    syn region schemeString start=+#<#\s*\z(.*\)+ end=+^\z1$+ contains=@Spell
 endif
 
 
 if exists("b:is_gauche") || exists("is_gauche")
-    " Gauche extensions
-    " multiline comment
-    syntax region schemeMultilineComment start=/#|/ end=/|#/ contains=schemeMultilineComment,schemeTodo
+call gauche#syntax#define_keywords()
 
-    " #/xxx/ are the special Gauche identifiers for regexp
-    syn region schemeRegexp start=+\%(\\\)\@<!#/+ skip=+\\[\\/]+ end=+/+
-
-    " anything limited by |'s is identifier
-    syn match schemeOther oneline    "|[^|]\+|"
-
-    " SharpBang
-    syn match	schemeSharpBang	oneline    "#!.*"
-
-    " include (use hoge)
-    syn match	schemeInclude	oneline    "(use .*)"
-    syn match	schemeInclude	oneline    "(require .*)"
-    syn match	schemeInclude	oneline    "(import .*)"
-
-    " misc
-    syn match	schemeInterpolation	oneline    "#`"
-    syn match	schemeInterpolation	oneline    "#?="
-
-    " char
-    "syn match	schemeChar	oneline    "#\\space"
-    "syn match	schemeError	oneline    !#\\space[^ \t\[\]()";]\+!
-    "syn match	schemeChar	oneline    "#\\newline"
-    "syn match	schemeError	oneline    !#\\newline[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\nl"
-    syn match	schemeError	oneline    !#\\nl[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\lf"
-    syn match	schemeError	oneline    !#\\lf[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\return"
-    syn match	schemeError	oneline    !#\\return[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\cr"
-    syn match	schemeError	oneline    !#\\cr[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\tab"
-    syn match	schemeError	oneline    !#\\tab[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\ht"
-    syn match	schemeError	oneline    !#\\ht[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\page"
-    syn match	schemeError	oneline    !#\\page[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\esc"
-    syn match	schemeError	oneline    !#\\esc[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\escape"
-    syn match	schemeError	oneline    !#\\escape[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\del"
-    syn match	schemeError	oneline    !#\\del[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\delete"
-    syn match	schemeError	oneline    !#\\delete[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\null"
-    syn match	schemeError	oneline    !#\\null[^ \t\[\]()";]\+!
-
-    " this part was auto-generated.
+" this part was auto-generated.
     " module
+    syn keyword schemeExtFunc %slib-load
     syn keyword schemeExtFunc *argc*
+    syn keyword schemeExtFunc *base-table-implementations*
+    syn keyword schemeExtFunc *catalog*
+    syn keyword schemeExtFunc *features*
+    syn keyword schemeExtFunc *load-pathname*
+    syn keyword schemeExtFunc *slib-version*
+    syn keyword schemeExtFunc -1+
+    syn keyword schemeExtFunc 1+
+    syn keyword schemeExtFunc 1-
     syn keyword schemeExtFunc <instance-table-meta>
     syn keyword schemeExtFunc <instance-table-mixin>
     syn keyword schemeExtFunc G184
@@ -384,11 +343,26 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc address-of
     syn keyword schemeExtFunc address?
     syn keyword schemeExtFunc autoload?
+    syn keyword schemeExtFunc base:eval
     syn keyword schemeExtFunc blockc
+    syn keyword schemeExtFunc browse-url
+    syn keyword schemeExtFunc byte-ref
+    syn keyword schemeExtFunc byte-set!
+    syn keyword schemeExtFunc bytes
+    syn keyword schemeExtFunc bytes->list
+    syn keyword schemeExtFunc bytes-length
+    syn keyword schemeExtFunc call-with-open-ports
+    syn keyword schemeExtFunc catalog/require-version-match?
+    syn keyword schemeExtFunc catalog:get
+    syn keyword schemeExtFunc catalog:read
+    syn keyword schemeExtFunc catalog:resolve
+    syn keyword schemeExtFunc catalog:try-read
     syn keyword schemeExtFunc catch
     syn keyword schemeExtFunc cd
     syn keyword schemeExtFunc cgi-handler
     syn keyword schemeExtFunc cgi-script
+    syn keyword schemeExtFunc char-code-limit
+    syn keyword schemeExtFunc close-port
     syn keyword schemeExtFunc colour-command
     syn keyword schemeExtFunc colour-info
     syn keyword schemeExtFunc colour-info-homepage
@@ -408,6 +382,9 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc dbd-null-test-result-set!
     syn keyword schemeExtFunc define-http-handler
     syn keyword schemeExtFunc define-page-handler
+    syn keyword schemeExtFunc defmacro
+    syn keyword schemeExtFunc defmacro:load
+    syn keyword schemeExtFunc delete-file
     syn keyword schemeExtFunc dump
     syn keyword schemeExtFunc environment->list
     syn keyword schemeExtFunc environment?
@@ -417,21 +394,28 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc expand-heap
     syn keyword schemeExtFunc export-all-symbols
     syn keyword schemeExtFunc export-symbol
+    syn keyword schemeExtFunc feature-eval
     syn keyword schemeExtFunc file-handler
     syn keyword schemeExtFunc file-is-archive?
     syn keyword schemeExtFunc find-all-tags
+    syn keyword schemeExtFunc force-output
     syn keyword schemeExtFunc gc-stats
-    syn keyword schemeExtFunc gcons
+    syn keyword schemeExtFunc gentemp
     syn keyword schemeExtFunc get-internal-info
     syn keyword schemeExtFunc get-os-type
     syn keyword schemeExtFunc global-environment
+    syn keyword schemeExtFunc home-vicinity
     syn keyword schemeExtFunc html5
     syn keyword schemeExtFunc http-server-software
+    syn keyword schemeExtFunc implementation-vicinity
+    syn keyword schemeExtFunc in-vicinity
     syn keyword schemeExtFunc input-file-port?
     syn keyword schemeExtFunc input-string-port?
     syn keyword schemeExtFunc input-virtual-port?
     syn keyword schemeExtFunc kaava-kansio
     syn keyword schemeExtFunc kellari-kansio
+    syn keyword schemeExtFunc library-vicinity
+    syn keyword schemeExtFunc list->bytes
     syn keyword schemeExtFunc load-build-file
     syn keyword schemeExtFunc loop-forever
     syn keyword schemeExtFunc loopc
@@ -440,28 +424,42 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc macro-body
     syn keyword schemeExtFunc macro-expand
     syn keyword schemeExtFunc macro-expand-1
+    syn keyword schemeExtFunc macro:eval
+    syn keyword schemeExtFunc macro:load
     syn keyword schemeExtFunc macro?
+    syn keyword schemeExtFunc make-bytes
+    syn keyword schemeExtFunc make-exchanger
+    syn keyword schemeExtFunc make-vicinity
     syn keyword schemeExtFunc mik:mik->sxml
     syn keyword schemeExtFunc mik:nico-playlist->mik
     syn keyword schemeExtFunc mkdir
     syn keyword schemeExtFunc module-environment
     syn keyword schemeExtFunc module-symbols
+    syn keyword schemeExtFunc most-positive-fixnum
+    syn keyword schemeExtFunc nil
     syn keyword schemeExtFunc nothing
     syn keyword schemeExtFunc open
+    syn keyword schemeExtFunc open-file
     syn keyword schemeExtFunc open-input-virtual
     syn keyword schemeExtFunc open-output-virtual
     syn keyword schemeExtFunc output-file-port?
+    syn keyword schemeExtFunc output-port-height
+    syn keyword schemeExtFunc output-port-width
     syn keyword schemeExtFunc output-string-port?
     syn keyword schemeExtFunc output-virtual-port?
     syn keyword schemeExtFunc p
     syn keyword schemeExtFunc panna-kansio
     syn keyword schemeExtFunc parent-environment
+    syn keyword schemeExtFunc pathname->vicinity
     syn keyword schemeExtFunc port->incomplete-string
     syn keyword schemeExtFunc posix-mkdir
     syn keyword schemeExtFunc posix-perror
     syn keyword schemeExtFunc print-strings
     syn keyword schemeExtFunc procedure-body
     syn keyword schemeExtFunc procedure-environment
+    syn keyword schemeExtFunc program-arguments
+    syn keyword schemeExtFunc program-vicinity
+    syn keyword schemeExtFunc report:print
     syn keyword schemeExtFunc request-cookie-ref
     syn keyword schemeExtFunc request-cookies
     syn keyword schemeExtFunc request-header-ref
@@ -477,6 +475,7 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc request-server-port
     syn keyword schemeExtFunc request-socket
     syn keyword schemeExtFunc request?
+    syn keyword schemeExtFunc require-if
     syn keyword schemeExtFunc respond/ng
     syn keyword schemeExtFunc respond/ok
     syn keyword schemeExtFunc respond/redirect
@@ -488,11 +487,40 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc riisi-kansio
     syn keyword schemeExtFunc run-command
     syn keyword schemeExtFunc run-command-sudo
+    syn keyword schemeExtFunc scheme-file-suffix
+    syn keyword schemeExtFunc scheme-implementation-home-page
+    syn keyword schemeExtFunc scheme-implementation-type
+    syn keyword schemeExtFunc scheme-implementation-version
     syn keyword schemeExtFunc send-signal
+    syn keyword schemeExtFunc slib:error
+    syn keyword schemeExtFunc slib:eval
+    syn keyword schemeExtFunc slib:eval-load
+    syn keyword schemeExtFunc slib:exit
+    syn keyword schemeExtFunc slib:features
+    syn keyword schemeExtFunc slib:form-feed
+    syn keyword schemeExtFunc slib:in-catalog?
+    syn keyword schemeExtFunc slib:load
+    syn keyword schemeExtFunc slib:load-compiled
+    syn keyword schemeExtFunc slib:load-source
+    syn keyword schemeExtFunc slib:pathnameize-load
+    syn keyword schemeExtFunc slib:provide
+    syn keyword schemeExtFunc slib:provided?
+    syn keyword schemeExtFunc slib:report
+    syn keyword schemeExtFunc slib:report-locations
+    syn keyword schemeExtFunc slib:report-version
+    syn keyword schemeExtFunc slib:require
+    syn keyword schemeExtFunc slib:require-if
+    syn keyword schemeExtFunc slib:tab
+    syn keyword schemeExtFunc slib:version
+    syn keyword schemeExtFunc slib:warn
+    syn keyword schemeExtFunc software-type
     syn keyword schemeExtFunc start-http-server
+    syn keyword schemeExtFunc sub-vicinity
     syn keyword schemeExtFunc swget
+    syn keyword schemeExtFunc t
     syn keyword schemeExtFunc tap
     syn keyword schemeExtFunc the-environment
+    syn keyword schemeExtFunc tmpnam
     syn keyword schemeExtFunc try-load
     syn keyword schemeExtFunc uncode
     syn keyword schemeExtFunc url-is-bzr?
@@ -501,11 +529,14 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc url-is-git?
     syn keyword schemeExtFunc url-is-hg?
     syn keyword schemeExtFunc url-is-svn?
+    syn keyword schemeExtFunc user-vicinity
     syn keyword schemeExtFunc vector-resize
+    syn keyword schemeExtFunc vicinity:suffix?
     syn keyword schemeExtFunc when-port-readable
     syn keyword schemeExtFunc when-port-writable
     syn keyword schemeExtFunc whitespace->dash
     syn keyword schemeExtFunc whitespace->underbar
+    syn keyword schemeExtFunc with-load-pathname
 
 
     " syntax
@@ -551,6 +582,8 @@ if exists("b:is_gauche") || exists("is_gauche")
     set lispwords+=lazy
     syn keyword schemeExtSyntax receive
     set lispwords+=receive
+    syn keyword schemeExtSyntax require
+    set lispwords+=require
     syn keyword schemeExtSyntax select-module
     set lispwords+=select-module
     syn keyword schemeExtSyntax unless
@@ -708,8 +741,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     set lispwords+=define-record-type
     syn keyword schemeExtSyntax define-values
     set lispwords+=define-values
-    syn keyword schemeExtSyntax defmacro
-    set lispwords+=defmacro
     syn keyword schemeExtSyntax do-ec
     set lispwords+=do-ec
     syn keyword schemeExtSyntax do-ec:do
@@ -810,8 +841,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     set lispwords+=push!
     syn keyword schemeExtSyntax rec
     set lispwords+=rec
-    syn keyword schemeExtSyntax require
-    set lispwords+=require
     syn keyword schemeExtSyntax require-extension
     set lispwords+=require-extension
     syn keyword schemeExtSyntax reset
@@ -1005,7 +1034,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc %regexp-pattern
     syn keyword schemeExtFunc %regmatch-dump
     syn keyword schemeExtFunc %require
-    syn keyword schemeExtFunc %slib-load
     syn keyword schemeExtFunc %sort
     syn keyword schemeExtFunc %sort!
     syn keyword schemeExtFunc %sparse-table-check
@@ -1028,13 +1056,10 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc *.
     syn keyword schemeExtFunc +.
     syn keyword schemeExtFunc -.
-    syn keyword schemeExtFunc -1+
     syn keyword schemeExtFunc ->char-set
     syn keyword schemeExtFunc ->stream-char
     syn keyword schemeExtFunc .$
     syn keyword schemeExtFunc /.
-    syn keyword schemeExtFunc 1+
-    syn keyword schemeExtFunc 1-
     syn keyword schemeExtFunc G1144
     syn keyword schemeExtFunc G1145
     syn keyword schemeExtFunc G1150
@@ -1277,7 +1302,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc base64-decode-string
     syn keyword schemeExtFunc base64-encode
     syn keyword schemeExtFunc base64-encode-string
-    syn keyword schemeExtFunc base:eval
     syn keyword schemeExtFunc bcrypt-gensalt
     syn keyword schemeExtFunc bcrypt-hashpw
     syn keyword schemeExtFunc bignum?
@@ -1305,16 +1329,10 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc booleans->integer
     syn keyword schemeExtFunc break
     syn keyword schemeExtFunc break!
-    syn keyword schemeExtFunc browse-url
     syn keyword schemeExtFunc build-path
     syn keyword schemeExtFunc build-transliterator
     syn keyword schemeExtFunc byte-ready?
-    syn keyword schemeExtFunc byte-ref
-    syn keyword schemeExtFunc byte-set!
     syn keyword schemeExtFunc byte-substring
-    syn keyword schemeExtFunc bytes
-    syn keyword schemeExtFunc bytes->list
-    syn keyword schemeExtFunc bytes-length
     syn keyword schemeExtFunc call-with-cgi-script
     syn keyword schemeExtFunc call-with-client-socket
     syn keyword schemeExtFunc call-with-ftp-connection
@@ -1322,7 +1340,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc call-with-input-process
     syn keyword schemeExtFunc call-with-input-string
     syn keyword schemeExtFunc call-with-iterators
-    syn keyword schemeExtFunc call-with-open-ports
     syn keyword schemeExtFunc call-with-output-conversion
     syn keyword schemeExtFunc call-with-output-process
     syn keyword schemeExtFunc call-with-output-string
@@ -1336,11 +1353,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc cartesian-product-for-each
     syn keyword schemeExtFunc cartesian-product-right
     syn keyword schemeExtFunc cartesian-product-right-for-each
-    syn keyword schemeExtFunc catalog/require-version-match?
-    syn keyword schemeExtFunc catalog:get
-    syn keyword schemeExtFunc catalog:read
-    syn keyword schemeExtFunc catalog:resolve
-    syn keyword schemeExtFunc catalog:try-read
     syn keyword schemeExtFunc ceiling->exact
     syn keyword schemeExtFunc cerr
     syn keyword schemeExtFunc ces-conversion-supported?
@@ -1450,7 +1462,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc class-slot-ref
     syn keyword schemeExtFunc class-slot-set!
     syn keyword schemeExtFunc class-slots
-    syn keyword schemeExtFunc close-port
     syn keyword schemeExtFunc closure-code
     syn keyword schemeExtFunc closure?
     syn keyword schemeExtFunc codepoints->grapheme-clusters
@@ -1539,14 +1550,12 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc default-endian
     syn keyword schemeExtFunc define-reader-ctor
     syn keyword schemeExtFunc define-reader-directive
-    syn keyword schemeExtFunc defmacro:load
     syn keyword schemeExtFunc delete
     syn keyword schemeExtFunc delete!
     syn keyword schemeExtFunc delete$
     syn keyword schemeExtFunc delete-directory*
     syn keyword schemeExtFunc delete-duplicates
     syn keyword schemeExtFunc delete-duplicates!
-    syn keyword schemeExtFunc delete-file
     syn keyword schemeExtFunc delete-files
     syn keyword schemeExtFunc delete-keyword
     syn keyword schemeExtFunc delete-keyword!
@@ -1671,7 +1680,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc f64vector-swap-bytes
     syn keyword schemeExtFunc f64vector-swap-bytes!
     syn keyword schemeExtFunc f64vector?
-    syn keyword schemeExtFunc feature-eval
     syn keyword schemeExtFunc fifth
     syn keyword schemeExtFunc file->byte-generator
     syn keyword schemeExtFunc file->char-generator
@@ -1747,7 +1755,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc fold-right$
     syn keyword schemeExtFunc foldts
     syn keyword schemeExtFunc for-each$
-    syn keyword schemeExtFunc force-output
     syn keyword schemeExtFunc foreign-pointer-attribute-get
     syn keyword schemeExtFunc foreign-pointer-attribute-set
     syn keyword schemeExtFunc foreign-pointer-attributes
@@ -1807,11 +1814,11 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc gauche-version
     syn keyword schemeExtFunc gc
     syn keyword schemeExtFunc gc-stat
+    syn keyword schemeExtFunc gcons
     syn keyword schemeExtFunc gdrop
     syn keyword schemeExtFunc gdrop-while
     syn keyword schemeExtFunc generator->list
     syn keyword schemeExtFunc gensym
-    syn keyword schemeExtFunc gentemp
     syn keyword schemeExtFunc get-environment-variable
     syn keyword schemeExtFunc get-environment-variables
     syn keyword schemeExtFunc get-f16
@@ -1896,7 +1903,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc hmac-digest
     syn keyword schemeExtFunc hmac-digest-string
     syn keyword schemeExtFunc home-directory
-    syn keyword schemeExtFunc home-vicinity
     syn keyword schemeExtFunc hook?
     syn keyword schemeExtFunc html-doctype
     syn keyword schemeExtFunc html-escape
@@ -2028,8 +2034,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc identity-array
     syn keyword schemeExtFunc if-car-sxpath
     syn keyword schemeExtFunc if-sxpath
-    syn keyword schemeExtFunc implementation-vicinity
-    syn keyword schemeExtFunc in-vicinity
     syn keyword schemeExtFunc inet-address->string
     syn keyword schemeExtFunc inet-checksum
     syn keyword schemeExtFunc inet-string->address
@@ -2089,9 +2093,7 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc library-for-each
     syn keyword schemeExtFunc library-has-module?
     syn keyword schemeExtFunc library-map
-    syn keyword schemeExtFunc library-vicinity
     syn keyword schemeExtFunc list*
-    syn keyword schemeExtFunc list->bytes
     syn keyword schemeExtFunc list->char-set
     syn keyword schemeExtFunc list->char-set!
     syn keyword schemeExtFunc list->f16vector
@@ -2141,15 +2143,12 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc lset-xor!
     syn keyword schemeExtFunc lset<=
     syn keyword schemeExtFunc lset=
-    syn keyword schemeExtFunc macro:eval
-    syn keyword schemeExtFunc macro:load
     syn keyword schemeExtFunc macroexpand
     syn keyword schemeExtFunc macroexpand-1
     syn keyword schemeExtFunc main
     syn keyword schemeExtFunc make-array
     syn keyword schemeExtFunc make-bimap
     syn keyword schemeExtFunc make-byte-string
-    syn keyword schemeExtFunc make-bytes
     syn keyword schemeExtFunc make-cgen-type
     syn keyword schemeExtFunc make-char-quotator
     syn keyword schemeExtFunc make-client-socket
@@ -2162,7 +2161,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc make-date
     syn keyword schemeExtFunc make-directory*
     syn keyword schemeExtFunc make-empty-attlist
-    syn keyword schemeExtFunc make-exchanger
     syn keyword schemeExtFunc make-f16array
     syn keyword schemeExtFunc make-f16vector
     syn keyword schemeExtFunc make-f32array
@@ -2226,7 +2224,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc make-u64vector
     syn keyword schemeExtFunc make-u8array
     syn keyword schemeExtFunc make-u8vector
-    syn keyword schemeExtFunc make-vicinity
     syn keyword schemeExtFunc make-weak-vector
     syn keyword schemeExtFunc make-word-breaker
     syn keyword schemeExtFunc make-word-reader
@@ -2334,7 +2331,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc null-list?
     syn keyword schemeExtFunc number->stream
     syn keyword schemeExtFunc open-coding-aware-port
-    syn keyword schemeExtFunc open-file
     syn keyword schemeExtFunc open-info-file
     syn keyword schemeExtFunc open-input-buffered-port
     syn keyword schemeExtFunc open-input-conversion-port
@@ -2351,8 +2347,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc open-output-uvector
     syn keyword schemeExtFunc option
     syn keyword schemeExtFunc option?
-    syn keyword schemeExtFunc output-port-height
-    syn keyword schemeExtFunc output-port-width
     syn keyword schemeExtFunc output-serializer?
     syn keyword schemeExtFunc pa$
     syn keyword schemeExtFunc pack
@@ -2372,7 +2366,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc path-sans-extension
     syn keyword schemeExtFunc path-separator
     syn keyword schemeExtFunc path-swap-extension
-    syn keyword schemeExtFunc pathname->vicinity
     syn keyword schemeExtFunc peek-byte
     syn keyword schemeExtFunc peek-next-char
     syn keyword schemeExtFunc peg-parse-port
@@ -2461,8 +2454,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc profiler-show-load-stats
     syn keyword schemeExtFunc profiler-start
     syn keyword schemeExtFunc profiler-stop
-    syn keyword schemeExtFunc program-arguments
-    syn keyword schemeExtFunc program-vicinity
     syn keyword schemeExtFunc promise-kind
     syn keyword schemeExtFunc promise?
     syn keyword schemeExtFunc proper-list?
@@ -2643,8 +2634,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc replace-range
     syn keyword schemeExtFunc report-error
     syn keyword schemeExtFunc report-time-results
-    syn keyword schemeExtFunc report:print
-    syn keyword schemeExtFunc require-if
     syn keyword schemeExtFunc reset-http-connection
     syn keyword schemeExtFunc resolve-path
     syn keyword schemeExtFunc reverse!
@@ -2804,10 +2793,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc s8vector-xor
     syn keyword schemeExtFunc s8vector-xor!
     syn keyword schemeExtFunc s8vector?
-    syn keyword schemeExtFunc scheme-file-suffix
-    syn keyword schemeExtFunc scheme-implementation-home-page
-    syn keyword schemeExtFunc scheme-implementation-type
-    syn keyword schemeExtFunc scheme-implementation-version
     syn keyword schemeExtFunc second
     syn keyword schemeExtFunc seconds->time
     syn keyword schemeExtFunc select-first-kid
@@ -2844,24 +2829,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc sixth
     syn keyword schemeExtFunc skip-until
     syn keyword schemeExtFunc skip-while
-    syn keyword schemeExtFunc slib:error
-    syn keyword schemeExtFunc slib:eval
-    syn keyword schemeExtFunc slib:eval-load
-    syn keyword schemeExtFunc slib:exit
-    syn keyword schemeExtFunc slib:in-catalog?
-    syn keyword schemeExtFunc slib:load
-    syn keyword schemeExtFunc slib:load-compiled
-    syn keyword schemeExtFunc slib:load-source
-    syn keyword schemeExtFunc slib:pathnameize-load
-    syn keyword schemeExtFunc slib:provide
-    syn keyword schemeExtFunc slib:provided?
-    syn keyword schemeExtFunc slib:report
-    syn keyword schemeExtFunc slib:report-locations
-    syn keyword schemeExtFunc slib:report-version
-    syn keyword schemeExtFunc slib:require
-    syn keyword schemeExtFunc slib:require-if
-    syn keyword schemeExtFunc slib:version
-    syn keyword schemeExtFunc slib:warn
     syn keyword schemeExtFunc slices
     syn keyword schemeExtFunc slot-bound-using-accessor?
     syn keyword schemeExtFunc slot-bound?
@@ -2904,7 +2871,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc socket-setsockopt
     syn keyword schemeExtFunc socket-shutdown
     syn keyword schemeExtFunc socket-status
-    syn keyword schemeExtFunc software-type
     syn keyword schemeExtFunc sort
     syn keyword schemeExtFunc sort!
     syn keyword schemeExtFunc sort-by
@@ -3208,7 +3174,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc string=
     syn keyword schemeExtFunc string>
     syn keyword schemeExtFunc string>=
-    syn keyword schemeExtFunc sub-vicinity
     syn keyword schemeExtFunc subarray
     syn keyword schemeExtFunc subr?
     syn keyword schemeExtFunc substring-spec-ok?
@@ -3565,7 +3530,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc time>?
     syn keyword schemeExtFunc time?
     syn keyword schemeExtFunc tmodule-cname
-    syn keyword schemeExtFunc tmpnam
     syn keyword schemeExtFunc toplevel-closure?
     syn keyword schemeExtFunc topological-sort
     syn keyword schemeExtFunc touch-file
@@ -3778,7 +3742,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc uri-merge
     syn keyword schemeExtFunc uri-parse
     syn keyword schemeExtFunc uri-scheme&specific
-    syn keyword schemeExtFunc user-vicinity
     syn keyword schemeExtFunc utf16->ucs4
     syn keyword schemeExtFunc utf16-length
     syn keyword schemeExtFunc utf8->ucs4
@@ -3835,7 +3798,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc version=?
     syn keyword schemeExtFunc version>=?
     syn keyword schemeExtFunc version>?
-    syn keyword schemeExtFunc vicinity:suffix?
     syn keyword schemeExtFunc vm-build-insn
     syn keyword schemeExtFunc vm-dump
     syn keyword schemeExtFunc vm-find-insn-info
@@ -3854,7 +3816,6 @@ if exists("b:is_gauche") || exists("is_gauche")
     syn keyword schemeExtFunc with-input-from-port
     syn keyword schemeExtFunc with-input-from-process
     syn keyword schemeExtFunc with-input-from-string
-    syn keyword schemeExtFunc with-load-pathname
     syn keyword schemeExtFunc with-lock-file
     syn keyword schemeExtFunc with-locking-mutex
     syn keyword schemeExtFunc with-output-conversion
@@ -4526,8 +4487,8 @@ if exists("b:is_gauche") || exists("is_gauche")
     set lispwords+=call-with-input-string
     set lispwords+=let-args
 
-    " meddlesome
-    set ts=8 sts=2 sw=2 et nocindent lisp
+" meddlesome
+set ts=8 sts=2 sw=2 et nocindent lisp
 endif
 
 
@@ -4536,43 +4497,8 @@ endif
 syn sync match matchPlace grouphere NONE "^[^ \t]"
 " ... i.e. synchronize on a line that starts at the left margin
 
-" Define the default highlighting.
-" For version 5.7 and earlier: only when not done already
-" For version 5.8 and later: only when an item doesn't have highlighting yet
-if version >= 508 || !exists("did_scheme_syntax_inits")
-  if version < 508
-    let did_scheme_syntax_inits = 1
-    command -nargs=+ HiLink hi link <args>
-  else
-    command -nargs=+ HiLink hi def link <args>
-  endif
-
-  HiLink schemeSyntax		Statement
-  HiLink schemeFunc		Function
-
-  HiLink schemeString		String
-  HiLink schemeChar		Character
-  HiLink schemeNumber		Number
-  HiLink schemeBoolean		Boolean
-
-  HiLink schemeDelimiter	Delimiter
-  HiLink schemeConstant		Constant
-
-  HiLink schemeComment		Comment
-  HiLink schemeMultilineComment	Comment
-  HiLink schemeTodo             Todo
-  HiLink schemeError		Error
-
-  HiLink schemeExtSyntax	Type
-  HiLink schemeExtFunc		PreProc
-
-  HiLink schemeRegexp		schemeString
-  HiLink schemeSrfi62Comment	schemeComment
-  HiLink schemeSharpBang	Special
-  HiLink schemeInclude		Include
-  HiLink schemeInterpolation	Debug
-
-  delcommand HiLink
-endif
+call scheme#syntax#define_highligts()
 
 let b:current_syntax = "scheme"
+
+" vim:filetype=vim
