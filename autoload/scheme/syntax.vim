@@ -41,6 +41,8 @@ if version >= 508 || !exists("did_scheme_syntax_inits")
   HiLink schemeInclude		Include
   HiLink schemeInterpolation	Debug
 
+  HiLink schemeKey		Type
+
   delcommand HiLink
 endif
 

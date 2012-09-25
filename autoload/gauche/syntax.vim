@@ -54,6 +54,10 @@ function! gauche#syntax#define_keywords()
     syn match	schemeError	oneline    !#\\delete[^ \t\[\]()";]\+!
     syn match	schemeChar	oneline    "#\\null"
     syn match	schemeError	oneline    !#\\null[^ \t\[\]()";]\+!
+
+    " scheme keyword argument
+    syntax match schemeKey display ":\{1,2}[[:alnum:]?!\-_+*.=<>#$/]\+"
+
 endfunction
 
 let &cpo = s:save_cpo
