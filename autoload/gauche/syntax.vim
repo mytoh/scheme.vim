@@ -22,7 +22,7 @@ function! gauche#syntax#define_keywords()
     syn match	schemeInclude	oneline    "(import .*)"
 
     " misc
-    syn match	schemeInterpolation	oneline    "#`"
+    " syn match	schemeInterpolation	oneline    "#`"
     syn match	schemeInterpolation	oneline    "#?="
 
     " char
@@ -57,6 +57,12 @@ function! gauche#syntax#define_keywords()
 
     " scheme keyword argument
     syntax match schemeKey display ":\{1,2}[[:alnum:]?!\-_+*.=<>#$/]\+"
+
+
+    " #`"gauche special string literal"
+    syn match	schemeInterpolation	oneline    "#`"
+    syn region schemeString start='#`"' end='"' contains=schemeUnquote,schemeStringUnquote
+    syn region schemeStringUnquote matchgroup=schemeFunc start=',|'  end='|'
 
 endfunction
 
