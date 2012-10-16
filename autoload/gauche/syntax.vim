@@ -8,61 +8,61 @@ function! gauche#syntax#define_keywords()
     syntax region schemeMultilineComment start=/#|/ end=/|#/ contains=@Spell,schemeMultilineComment,schemeTodo
 
     " #/xxx/ are the special Gauche identifiers for regexp
-    syn region schemeRegexp start=+\%(\\\)\@<!#/+ skip=+\\[\\/]+ end=+/+
+    syntax region schemeRegexp start=+\%(\\\)\@<!#/+ skip=+\\[\\/]+ end=+/+
 
     " anything limited by |'s is identifier
-    syn match schemeOther oneline    "|[^|]\+|"
+    syntax match schemeOther oneline    "|[^|]\+|"
 
     " SharpBang
-    syn match	schemeSharpBang	oneline    "#!.*"
+    syntax match	schemeSharpBang	oneline    "#!.*"
 
     " include (use hoge)
-    syn match	schemeInclude	oneline    "(use .*)"
-    syn match	schemeInclude	oneline    "(require .*)"
-    syn match	schemeInclude	oneline    "(import .*)"
+    syntax match	schemeInclude	oneline    "(use .*)"
+    syntax match	schemeInclude	oneline    "(require .*)"
+    syntax match	schemeInclude	oneline    "(import .*)"
 
     " misc
-    " syn match	schemeInterpolation	oneline    "#`"
-    syn match	schemeInterpolation	oneline    "#?="
+    " syntax match	schemeInterpolation	oneline    "#`"
+    syntax match	schemeInterpolation	oneline    "#?="
 
     " char
-    "syn match	schemeChar	oneline    "#\\space"
-    "syn match	schemeError	oneline    !#\\space[^ \t\[\]()";]\+!
-    "syn match	schemeChar	oneline    "#\\newline"
-    "syn match	schemeError	oneline    !#\\newline[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\nl"
-    syn match	schemeError	oneline    !#\\nl[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\lf"
-    syn match	schemeError	oneline    !#\\lf[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\return"
-    syn match	schemeError	oneline    !#\\return[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\cr"
-    syn match	schemeError	oneline    !#\\cr[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\tab"
-    syn match	schemeError	oneline    !#\\tab[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\ht"
-    syn match	schemeError	oneline    !#\\ht[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\page"
-    syn match	schemeError	oneline    !#\\page[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\esc"
-    syn match	schemeError	oneline    !#\\esc[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\escape"
-    syn match	schemeError	oneline    !#\\escape[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\del"
-    syn match	schemeError	oneline    !#\\del[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\delete"
-    syn match	schemeError	oneline    !#\\delete[^ \t\[\]()";]\+!
-    syn match	schemeChar	oneline    "#\\null"
-    syn match	schemeError	oneline    !#\\null[^ \t\[\]()";]\+!
+    "syntax match	schemeChar	oneline    "#\\space"
+    "syntax match	schemeError	oneline    !#\\space[^ \t\[\]()";]\+!
+    "syntax match	schemeChar	oneline    "#\\newline"
+    "syntax match	schemeError	oneline    !#\\newline[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\nl"
+    syntax match	schemeError	oneline    !#\\nl[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\lf"
+    syntax match	schemeError	oneline    !#\\lf[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\return"
+    syntax match	schemeError	oneline    !#\\return[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\cr"
+    syntax match	schemeError	oneline    !#\\cr[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\tab"
+    syntax match	schemeError	oneline    !#\\tab[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\ht"
+    syntax match	schemeError	oneline    !#\\ht[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\page"
+    syntax match	schemeError	oneline    !#\\page[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\esc"
+    syntax match	schemeError	oneline    !#\\esc[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\escape"
+    syntax match	schemeError	oneline    !#\\escape[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\del"
+    syntax match	schemeError	oneline    !#\\del[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\delete"
+    syntax match	schemeError	oneline    !#\\delete[^ \t\[\]()";]\+!
+    syntax match	schemeChar	oneline    "#\\null"
+    syntax match	schemeError	oneline    !#\\null[^ \t\[\]()";]\+!
 
     " scheme keyword argument
     syntax match schemeKey display ":\{1,2}[[:alnum:]?!\-_+*.=<>#$/]\+"
 
 
     " #`"gauche special string literal"
-    syn match	schemeInterpolation	oneline    "#`"
-    syn region schemeString start='#`"' end='"' contains=schemeUnquote,schemeStringUnquote
-    syn region schemeStringUnquote matchgroup=schemeFunc start=',|'  end='|'
+    syntax match	schemeInterpolation	oneline    "#`"
+    syntax region schemeString start='#`"' end='"' contains=schemeUnquote,schemeStringUnquote
+    syntax region schemeStringUnquote matchgroup=schemeFunc start=',|'  end='|'
 
 endfunction
 
