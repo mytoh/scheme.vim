@@ -60,9 +60,9 @@ function! gauche#syntax#define_keywords()
 
 
     " #`"gauche special string literal"
-    syntax match	schemeInterpolation	oneline    "#`"
-    syntax region schemeString start='#`"' end='"' contains=schemeUnquote,schemeStringUnquote
-    syntax region schemeStringUnquote matchgroup=schemeFunc start=',|'  end='|'
+    " syntax match	schemeInterpolation	oneline    "#`"
+    " syntax region schemeString start='#`"'me=e-2 end='"' contains=schemeUnquote,schemeStringUnquote
+    " syntax region schemeStringUnquote matchgroup=schemeFunc start=',|'  end='|'
 
 endfunction
 
