@@ -49,6 +49,7 @@ endfunction
 
 function! scheme#syntax#define_r6rs()
   syn keyword schemeSyntax library export import rename for run expand meta only except prefix
+  set lispwords+=library,export,import,rename,for,run,expand,meta,only,except,prefix
 endfunction
 
 let &cpo = s:save_cpo
