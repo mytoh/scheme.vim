@@ -4513,7 +4513,9 @@ syn sync match matchPlace grouphere NONE "^[^ \t]"
 " ... i.e. synchronize on a line that starts at the left margin
 
 call scheme#syntax#define_highligts()
-call scheme#syntax#define_r6rs()
+if exists("b:is_r7rs") || exists("g:is_r7rs")
+  call scheme#syntax#r7rs#define_r7rs()
+endif
 
 let b:current_syntax = "scheme"
 

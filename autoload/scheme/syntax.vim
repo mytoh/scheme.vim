@@ -47,10 +47,6 @@ if version >= 508 || !exists("did_scheme_syntax_inits")
 endif
 endfunction
 
-function! scheme#syntax#define_r6rs()
-  syn keyword schemeSyntax library export import rename for run expand meta only except prefix
-  set lispwords+=library,export,import,rename,for,run,expand,meta,only,except,prefix
-endfunction
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
