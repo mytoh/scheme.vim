@@ -4,7 +4,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! scheme#syntax#r7rs#define_r7rs()
-  syntax keyword schemeSyntax library export rename for run expand meta only except prefix
+  syntax keyword schemeSyntax library export rename for run expand meta only except prefix include include-ci include-library-declarations 
   syntax keyword schemeSyntax letrec-syntax 
   syntax keyword schemeSyntax with-syntax syntax-case
   syntax keyword schemeSyntax define-enumeration
@@ -26,25 +26,26 @@ function! scheme#syntax#r7rs#define_r7rs()
 
   call scheme#syntax#r7rs#define_r7rs_lispwords()
   call scheme#syntax#r7rs#comment()
-  call scheme#syntax#r7rs#keyword_scheme_base()
-  call scheme#syntax#r7rs#keyword_scheme_complex()
-  call scheme#syntax#r7rs#keyword_scheme_inexact()
-  call scheme#syntax#r7rs#keyword_scheme_load()
-  call scheme#syntax#r7rs#keyword_scheme_division()
-  call scheme#syntax#r7rs#keyword_scheme_lazy()
-  call scheme#syntax#r7rs#keyword_scheme_case_lambda()
-  call scheme#syntax#r7rs#keyword_scheme_eval()
-  call scheme#syntax#r7rs#keyword_scheme_repl()
-  call scheme#syntax#r7rs#keyword_scheme_process_context()
-  call scheme#syntax#r7rs#keyword_scheme_file()
-  call scheme#syntax#r7rs#keyword_scheme_read()
-  call scheme#syntax#r7rs#keyword_scheme_write()
-  call scheme#syntax#r7rs#keyword_scheme_char()
-  call scheme#syntax#r7rs#keyword_scheme_char_normalization()
-  call scheme#syntax#r7rs#keyword_scheme_time()
+  call scheme#syntax#r7rs#module_scheme_base()
+  call scheme#syntax#r7rs#module_scheme_cxr()
+  call scheme#syntax#r7rs#module_scheme_complex()
+  call scheme#syntax#r7rs#module_scheme_inexact()
+  call scheme#syntax#r7rs#module_scheme_load()
+  call scheme#syntax#r7rs#module_scheme_division()
+  call scheme#syntax#r7rs#module_scheme_lazy()
+  call scheme#syntax#r7rs#module_scheme_case_lambda()
+  call scheme#syntax#r7rs#module_scheme_eval()
+  call scheme#syntax#r7rs#module_scheme_repl()
+  call scheme#syntax#r7rs#module_scheme_process_context()
+  call scheme#syntax#r7rs#module_scheme_file()
+  call scheme#syntax#r7rs#module_scheme_read()
+  call scheme#syntax#r7rs#module_scheme_write()
+  call scheme#syntax#r7rs#module_scheme_char()
+  call scheme#syntax#r7rs#module_scheme_time()
+  call scheme#syntax#r7rs#module_scheme_r5rs()
 endfunction
 
-function! scheme#syntax#r7rs#keyword_scheme_base() "{{{
+function! scheme#syntax#r7rs#module_scheme_base() "{{{
   syntax keyword schemeSyntax import define define-syntax
   syntax keyword schemeSyntax lambda  set!
   syntax keyword schemeSyntax let  let*   letrec   letrec*   letrec-syntax   let*-values   let-syntax   let-values
@@ -80,41 +81,12 @@ function! scheme#syntax#r7rs#keyword_scheme_base() "{{{
         \  bytevector-u8-ref
         \  bytevector-u8-set!
         \  bytevector?
-        \  caaaar
-        \  caaadr
-        \  caaar
-        \  caadar
-        \  caaddr
-        \  caadr
-        \  caar
-        \  caar
-        \  cadaar
-        \  cadadr
-        \  cadar
-        \  caddar
-        \  cadddr
-        \  caddr
-        \  cadr
-        \  cadr
         \  call-with-current-continuation
         \  call-with-port
         \  call-with-values
         \  call/cc
         \  car
-        \  cdaaar
-        \  cdaadr
-        \  cdaar
-        \  cdadar
-        \  cdaddr
-        \  cdadr
         \  cdar
-        \  cddaar
-        \  cddadr
-        \  cddar
-        \  cdddar
-        \  cddddr
-        \  cdddr
-        \  cddr
         \  cdr
         \  ceiling
         \  char->integer
@@ -274,19 +246,52 @@ function! scheme#syntax#r7rs#keyword_scheme_base() "{{{
 
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_complex() "{{{
+function! scheme#syntax#r7rs#module_scheme_complex() "{{{
   syntax keyword schemeFunc angle make-polar real-part imag-part make-rectangular magnitude
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_inexact() "{{{
+function! schem@syntax#r7rs#module_scheme_cxr() "{{{
+  syntax keyword SchemeFunc \
+        \  caaaar
+        \  caaadr
+        \  caaar
+        \  caadar
+        \  caaddr
+        \  caadr
+        \  caar
+        \  caar
+        \  cadaar
+        \  cadadr
+        \  cadar
+        \  caddar
+        \  cadddr
+        \  caddr
+        \  cadr
+        \  cadr
+        \  cdaaar
+        \  cdaadr
+        \  cdaar
+        \  cdadar
+        \  cdaddr
+        \  cdadr
+        \  cddaar
+        \  cddadr
+        \  cddar
+        \  cdddar
+        \  cddddr
+        \  cdddr
+        \  cddr
+endfunction  "}}}
+
+function! scheme#syntax#r7rs#module_scheme_inexact() "{{{
   syntax keyword schemeFunc acos cos log sqrt asin exp nan?  tan atan finite?  sin
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_load() "{{{
+function! scheme#syntax#r7rs#module_scheme_load() "{{{
   syntax keyword schemeFunc load
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_division() "{{{
+function! scheme#syntax#r7rs#module_scheme_division() "{{{
   syntax keyword schemeFunc ceiling-quotient ceiling-remainder centered-quotient centered-remainder
   syntax keyword schemeFunc euclidean-quotient euclidean-remainder floor-quotient floor-remainder round-quotient
   syntax keyword schemeFunc round-remainder truncate-quotient truncate-remainder
@@ -294,41 +299,42 @@ function! scheme#syntax#r7rs#keyword_scheme_division() "{{{
   syntax keyword schemeFunc ceiling/ centered/ euclidean/ floor/ round/ truncate/
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_lazy() "{{{
-  syntax keyword schemeFunc delay eager force lazy
+function! scheme#syntax#r7rs#module_scheme_lazy() "{{{
+  syntax keyword schemeFunc delay delay-force force make-promise promise?
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_case_lambda() "{{{
+function! scheme#syntax#r7rs#module_scheme_case_lambda() "{{{
   syntax keyword schemeSyntax case-lambda
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_eval() "{{{
-  syntax keyword schemeSyntax eval environment null-environment scheme-report-environment
+function! scheme#syntax#r7rs#module_scheme_eval() "{{{
+  syntax keyword schemeSyntax eval environment
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_repl() "{{{
+function! scheme#syntax#r7rs#module_scheme_repl() "{{{
   syntax keyword schemeSyntax interaction-environment
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_process_context() "{{{
-  syntax keyword schemeFunc command-line exit get-environment-variable get-environment-variables
+function! scheme#syntax#r7rs#module_scheme_process_context() "{{{
+  syntax keyword schemeFunc command-line exit emergency-exit
+  syntax keyword schemeFunc get-environment-variable get-environment-variables
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_file() "{{{
+function! scheme#syntax#r7rs#module_scheme_file() "{{{
   syntax keyword schemeFunc with-output-to-file with-input-from-file open-output-file
   syntax keyword schemeFunc open-input-file open-binary-output-file open-binary-input-file
   syntax keyword schemeFunc file-exists?  delete-file call-with-output-file call-with-input-file
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_read() "{{{
+function! scheme#syntax#r7rs#module_scheme_read() "{{{
   syntax keyword schemeFunc read
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_write() "{{{
-  syntax keyword schemeFunc display write write-simple
+function! scheme#syntax#r7rs#module_scheme_write() "{{{
+  syntax keyword schemeFunc display write write-shared write-simple
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_char() "{{{
+function! scheme#syntax#r7rs#module_scheme_char() "{{{
   syntax keyword schemeFunc string-upcase string-foldcase string-downcase
   syntax keyword schemeFunc string-ci>?  string-ci>=?  string-ci=?  string-ci<?
   syntax keyword schemeFunc string-ci<=?  digit-value char-whitespace?  char-upper-case?
@@ -337,12 +343,230 @@ function! scheme#syntax#r7rs#keyword_scheme_char() "{{{
   syntax keyword schemeFunc char-ci<?  char-ci<=?  char-alphabetic?
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_char_normalization() "{{{
-  syntax keyword schemeFunc string-ni>?  string-ni>=?  string-ni=?  string-ni<?  string-ni<=?
+
+function! scheme#syntax#r7rs#module_scheme_time() "{{{
+  syntax keyword schemeFunc current-jiffy current-second jiffies-per-second
 endfunction "}}}
 
-function! scheme#syntax#r7rs#keyword_scheme_time() "{{{
-  syntax keyword schemeFunc current-jiffy current-second jiffies-per-second
+function! scheme#syntax#r7rs#module_scheme_r5rs() "{{{
+  syntax keyword schemeFunc \
+        \  *
+        \  +
+        \  /
+        \  <
+        \  <=
+        \  =
+        \  >
+        \  >=
+        \  abs
+        \  acos
+        \  and
+        \  angle
+        \  append
+        \  apply
+        \  asin
+        \  assoc
+        \  assq
+        \  assv
+        \  atan
+        \  begin
+        \  boolean?
+        \  caaaar
+        \  caaadr
+        \  caaar
+        \  caadar
+        \  caaddr
+        \  caadr
+        \  caar
+        \  cadaar
+        \  cadadr
+        \  cadar
+        \  caddar
+        \  cadddr
+        \  caddr
+        \  cadr
+        \  call-with-current-continuation
+        \  call-with-input-file
+        \  call-with-output-file
+        \  call-with-values
+        \  car
+        \  case
+        \  cdaaar
+        \  cdaadr
+        \  cdaar
+        \  cdadar
+        \  cdaddr
+        \  cdadr
+        \  cdar
+        \  cddaar
+        \  cddadr
+        \  cddar
+        \  cdddar
+        \  cddddr
+        \  cdddr
+        \  cddr
+        \  cdr
+        \  ceiling
+        \  char->integer
+        \  char-alphabetic?
+        \  char-ci<=?
+        \  char-ci<?
+        \  char-ci=?
+        \  char-ci>=?
+        \  char-ci>?
+        \  char-downcase
+        \  char-lower-case?
+        \  char-numeric?
+        \  char-ready?
+        \  char-upcase
+        \  char-upper-case?
+        \  char-whitespace?
+        \  char<=?
+        \  char<?
+        \  char=?
+        \  char>=?
+        \  char>?
+        \  char?
+        \  close-input-port
+        \  close-output-port
+        \  complex?
+        \  cond
+        \  cons
+        \  cos
+        \  current-input-port
+        \  current-output-port
+        \  define
+        \  define-syntax
+        \  delay
+        \  denominator
+        \  display
+        \  do
+        \  dynamic-wind
+        \  eof-object?
+        \  eq?
+        \  equal?
+        \  eqv?
+        \  eval
+        \  even?
+        \  exact->inexact
+        \  exact?
+        \  exp
+        \  expt
+        \  floor
+        \  for-each
+        \  force
+        \  gcd
+        \  if
+        \  imag-part
+        \  inexact->exact
+        \  inexact?
+        \  input-port?
+        \  integer->char
+        \  integer?
+        \  interaction-environment
+        \  lambda
+        \  lcm
+        \  length
+        \  let
+        \  
+        \  let*
+        \  let-syntax
+        \  letrec
+        \  letrec-syntax
+        \  list
+        \  list->string
+        \  list->vector
+        \  list-ref
+        \  list-tail
+        \  list?
+        \  load
+        \  log
+        \  magnitude
+        \  make-polar
+        \  make-rectangular
+        \  make-string
+        \  make-vector
+        \  map
+        \  max
+        \  member
+        \  memq
+        \  memv
+        \  min
+        \  modulo
+        \  negative?
+        \  newline
+        \  not
+        \  null-environment
+        \  null?
+        \  number->string
+        \  number?
+        \  numerator
+        \  odd?
+        \  open-input-file
+        \  open-output-file
+        \  or
+        \  output-port?
+        \  pair?
+        \  peek-char
+        \  positive?
+        \  procedure?
+        \  quasiquote
+        \  quote
+        \  quotient
+        \  rational?
+        \  rationalize
+        \  read
+        \  read-char
+        \  real-part
+        \  real?
+        \  remainder
+        \  reverse
+        \  round
+        \  scheme-report-environment
+        \  set!
+        \  set-car!
+        \  set-cdr!
+        \  sin
+        \  sqrt
+        \  string
+        \  string->list
+        \  string->number
+        \  string->symbol
+        \  string-append
+        \  string-ci<=?
+        \  string-ci<?
+        \  string-ci=?
+        \  string-ci>=?
+        \  string-ci>?
+        \  string-copy
+        \  string-fill!
+        \  string-length
+        \  string-ref
+        \  string-set!
+        \  string<=?
+        \  string<?
+        \  string=?
+        \  string>=?
+        \  string>?
+        \  string?
+        \  substring
+        \  symbol->string
+        \  symbol?
+        \  tan
+        \  truncate
+        \  values
+        \  vector
+        \  vector->list
+        \  vector-fill!
+        \  vector-length
+        \  vector-ref
+        \  vector-set!
+        \  vector?
+        \  with-input-from-file
+        \  with-output-to-file
+        \  write
+        \  write-char
+        \  zero?
 endfunction "}}}
 
 function! scheme#syntax#r7rs#comment() "{{{
