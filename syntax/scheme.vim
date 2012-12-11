@@ -4514,6 +4514,7 @@ syn sync match matchPlace grouphere NONE "^[^ \t]"
 
 call scheme#syntax#srfi#define_srfi()
 call scheme#syntax#define_highligts()
+call scheme#syntax#irregex#define_keywords()
 if exists("b:is_r7rs") || exists("g:is_r7rs")
   call scheme#syntax#r7rs#define_r7rs()
 endif
