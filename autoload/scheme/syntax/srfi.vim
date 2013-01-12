@@ -11,4 +11,10 @@ call scheme#syntax#srfi#srfi_39#define_srfi_39()
 call scheme#syntax#srfi#srfi_48#define_srfi_48()
 call scheme#syntax#srfi#srfi_78#define_srfi_78()
 call scheme#syntax#srfi#srfi_98#define_srfi_98()
+
+syntax match schemeSrfi oneline  "\v\s*\zssrfi\ze\s*:\d+"
+" syntax match schemeSrfiIdentifier oneline  "\vsrfi\s+:\d+\s+\zs\w+\ze" contains=schemeSrfi
+
+highlight default link schemeSrfi Type
+highlight default link schemeSrfiIdentifier Identifier
 endfunction
