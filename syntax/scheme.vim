@@ -78,6 +78,7 @@ else
   setlocal iskeyword=33,35-39,42,43,45-58,60-90,94,95,97-122,_,126,192-255
 endif
 
+if !exists("scheme_is_r7rs") && !exists("b:scheme_is_r7rs")
 " set lispwords=
 set lispwords+=lambda,and,or,if,cond,case,define,let,let*,letrec
 set lispwords+=begin,do,delay,set!,else,=>
@@ -136,6 +137,7 @@ syntax keyword schemeFunc hashtable-entries hashtable-equivalence-function hasht
 syntax keyword schemeFunc hashtable-mutable? equal-hash string-hash string-ci-hash symbol-hash
 syntax keyword schemeFunc find for-all exists filter partition fold-left fold-right
 syntax keyword schemeFunc remp remove remv remq memp assp cons*
+endif
 
 " ... so that a single + or -, inside a quoted context, would not be
 " interpreted as a number (outside such contexts, it's a schemeFunc)
@@ -241,7 +243,7 @@ syntax sync match matchPlace grouphere NONE "^[^ \t]"
 call scheme#syntax#srfi#define_srfi()
 call scheme#syntax#define_highligts()
 call scheme#syntax#irregex#define_keywords()
-if exists("b:is_r7rs") || exists("is_r7rs")
+if exists("b:scheme_is_r7rs") || exists("scheme_is_r7rs")
   call scheme#syntax#r7rs#define_r7rs()
 endif
 
